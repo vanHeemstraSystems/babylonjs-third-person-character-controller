@@ -44,3 +44,4 @@ scene.createDefaultEnvironment({
   createGround: false,
   createSkybox: false
 });
+CreateGround('ground', { width: 50, height: 50 });
