@@ -53,3 +53,5 @@ const loadModel = async () => {
   const model = await SceneLoader.ImportMeshAsync('null', 'https://assets.babylonjs.com/meshes/', 'HVGirl.glb', scene);
   const player = model.meshes[0];
 }
+
+loadModel();
