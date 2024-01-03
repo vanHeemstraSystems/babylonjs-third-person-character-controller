@@ -41,5 +41,6 @@ window.addEventListener('resize', () => {
 });
 
 scene.createDefaultEnvironment({
-  createGround: false
+  createGround: false,
+  createSkybox: false
 });
