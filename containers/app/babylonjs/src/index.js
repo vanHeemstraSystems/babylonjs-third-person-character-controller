@@ -5,8 +5,8 @@ import { Vector3 } from "../node_modules/@babylonjs/core/Maths/math.vector.js";
 import { HemisphericLight } from "../node_modules/@babylonjs/core/Lights/hemisphericLight.js";
 import { SceneLoader } from "../node_modules/@babylonjs/core/Loading/sceneLoader.js";
 import { CreateGround } from "../node_modules/@babylonjs/core/Meshes/Builders/groundBuilder.js";
-// import { ExecuteCodeAction } from '../node_modules/@babylonjs/core/';
-import { ActionManager } from '../node_modules/@babylonjs/core/Actions/actionManager.js';
+import { ExecuteCodeAction } from "../node_modules/@babylonjs/core/Actions/directActions.js";
+import { ActionManager } from "../node_modules/@babylonjs/core/Actions/actionManager.js";
 
 import '../node_modules/@babylonjs/loaders/glTF/2.0/index.js';
 
