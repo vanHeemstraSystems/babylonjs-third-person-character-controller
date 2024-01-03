@@ -12,7 +12,7 @@ const BABYLON = BABYLONu;
 // import { ExecuteCodeAction } from "../node_modules/@babylonjs/core/Actions/directActions.js";
 // import { ActionManager } from "../node_modules/@babylonjs/core/Actions/actionManager.js";
 
-import '@babylonjs/loaders/glTF/2.0/index.js';
+// import '@babylonjs/loaders/glTF/2.0/index.js';
 
 const canvas = document.getElementById('renderCanvas');
 const engine = new BABYLON.Engine(canvas, true);
