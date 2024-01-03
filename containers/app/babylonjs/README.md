@@ -14,7 +14,7 @@ To run the basic scene:
 
 1. Clone / download this repository
 2. run `npm install` to install the needed dependencies.
-3. run `npm start` **NOTE**: If you get 'Invalid Host header' check in package.json that the `serve` calls include ` --host 0.0.0.0`.
+3. run `npm start` **NOTE**: If you get 'Invalid Host header' check in package.json that the `serve` calls include ` --allowed-hosts all`.
 4. A new window should open in your default browser. if it doesn't, open `http://localhost:8080`
 5. ????
 6. Profit

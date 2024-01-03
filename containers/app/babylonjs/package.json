@@ -36,8 +36,8 @@
     "webpack-merge": "^5.8.0"
   },
   "scripts": {
-    "start": "npx webpack serve --config webpack.dev.js --host 0.0.0.0",
-    "start:test": "npx webpack serve --config webpack.tests.js --host 0.0.0.0",
+    "start": "npx webpack serve --config webpack.dev.js --allowed-hosts all",
+    "start:test": "npx webpack serve --config webpack.tests.js --allowed-hosts all",
     "build:dev": "npx webpack --config webpack.dev.js",
     "build": "npx webpack --config webpack.prod.js",
     "lint": "npx eslint . --ext .ts,.tsx",
