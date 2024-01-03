@@ -1,6 +1,6 @@
 // import * as BABYLONu from "https://cdn.babylonjs.com/babylon.max.js";
 import * as BABYLONu from "https://cdn.babylonjs.com/babylon.js";
-const BABYLON = BABYLONu as any;
+const BABYLON = BABYLONu;
 
 // import { Engine } from "../node_modules/@babylonjs/core/Engines/engine.js";
 // import { Scene } from "../node_modules/@babylonjs/core/scene.js";
