@@ -37,7 +37,7 @@ Note - the build process will be very slow if you keep all scenes for production
 
 Open the URL in a webgpu-enabled browser and add "?engine=webgpu" to the URL. If you want to add a different scene, add it as a query parameter: `http://localhost:8080/?scene=physicsWithAmmo&engine=webgpu`.
 
-For our third person character controller scene one needs to switch to this URL instead: `http://localhost:8080/?scene=physicsWithAmmo&engine=webgpu` or if not running on localhost, just add the parameters at the end of the existing URL, like so: *[YOUR HOST:PORT]*`/?scene=thirdPersonCharacterController&engine=webgpu`.
+For our third person character controller scene one needs to switch to this URL instead: `http://localhost:8080/?scene=physicsWithAmmo&engine=webgpu` or if not running on localhost, just add the parameters at the end of the existing URL, like so: *[YOUR HOST:PORT]*`/?scene=thirdPersonCharacterController&engine=webgpu`. NOTE: `engine=webgpu` is optional, you can choose to not include it.
 
 ## Running validation tests
 
