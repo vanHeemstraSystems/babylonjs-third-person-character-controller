@@ -1,1 +1,15 @@
-
+{
+  "name": "babylonjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babylonjs/core": "^6.36.1",
+    "@babylonjs/loaders": "^6.36.1"
+  }
+}
