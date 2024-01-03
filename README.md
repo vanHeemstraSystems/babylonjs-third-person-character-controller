@@ -15,4 +15,4 @@ For a live animation of a character see https://cdn.babylonjs.com/
 
 Open the inspector using Ctrl+Shift+U (or Command+Shift+U on Mac)
 
-We are following this initial creation of our BabylonJS app; [Babylon.js ES6 support with Tree Shaking](https://doc.babylonjs.com/setup/frameworkPackages/es6Support)
+We are following this initial creation of our BabylonJS app; [Babylon.js ES6 support with Tree Shaking](https://doc.babylonjs.com/setup/frameworkPackages/es6Support) and hosted at https://github.com/RaananW/babylonjs-webpack-es6
