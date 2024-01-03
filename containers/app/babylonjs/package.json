@@ -13,6 +13,7 @@
     "@babylonjs/core": "^6.36.1",
     "@babylonjs/gui": "^6.36.1",
     "@babylonjs/loaders": "^6.36.1",
+    "install": "^0.13.0",
     "parcel-bundler": "^1.12.5"
   },
   "devDependencies": {
