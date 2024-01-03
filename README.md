@@ -11,5 +11,6 @@ Sandbox "Babylon Journey 5 - Final" at https://codesandbox.io/p/sandbox/babylonj
 
 *TIP*: For ```Failed to resolve module specifier. Relative references must start with either```, see https://bobbyhadz.com/blog/failed-to-resolve-module-specifier-javascript
 
-For a live animation of a character see https://cdn.babylonjs.com/
+For a live animation of a character see https://cdn.babylonjs.com/ 
 
+Open the inspector using Ctrl+Shift+U (or Command+Shift+U on Mac)
