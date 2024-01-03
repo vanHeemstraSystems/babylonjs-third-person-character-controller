@@ -20,7 +20,7 @@ new HemisphericLight('hemiLight', new Vector3(0, 1, 0));
 
 // Camera
 const camera = new ArcRotateCamera(
-  'arcRotatecamera',
+  'arcRotateCamera',
   0,
   1,
   10,
