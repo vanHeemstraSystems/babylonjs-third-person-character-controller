@@ -19,7 +19,7 @@ const scene = new Scene(engine);
 new HemisphericLight('hemiLight', new Vector3(0, 1, 0));
 
 // Camera
-const camera = new ArchRotatecamera(
+const camera = new ArcRotateCamera(
   'arcRotatecamera',
   0,
   1,
@@ -27,3 +27,6 @@ const camera = new ArchRotatecamera(
   new Vector3(0, 0, 0),
   scene
 );
+camera.speed = 0.1;
+camera.attachControl(canvas, true);
+
