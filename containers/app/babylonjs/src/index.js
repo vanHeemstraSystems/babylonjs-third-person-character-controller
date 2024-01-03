@@ -45,3 +45,5 @@ scene.createDefaultEnvironment({
   createSkybox: false
 });
 CreateGround('ground', { width: 50, height: 50 });
+
+camera.wheelPrecision = 10;
