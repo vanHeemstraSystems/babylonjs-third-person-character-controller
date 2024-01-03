@@ -47,3 +47,9 @@ scene.createDefaultEnvironment({
 CreateGround('ground', { width: 50, height: 50 });
 
 camera.wheelPrecision = 10;
+
+// Model
+const loadModel = async () => {
+  const model = await SceneLoader.ImportMeshAsync('null', 'https://assets.babylonjs.com/meshes/', 'HVGirl.glb', scene);
+  const player = model.meshes[0];
+}
