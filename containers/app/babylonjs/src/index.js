@@ -30,3 +30,16 @@ const camera = new ArcRotateCamera(
 camera.speed = 0.1;
 camera.attachControl(canvas, true);
 
+// Render
+engine.runRenderLoop(() => {
+  scene.render();
+});
+
+// Resize
+window.addEventListener('resize', () => {
+  engine.resize();
+});
+
+scene.createDefaultEnvironment({
+  createGround: false
+});
