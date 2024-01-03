@@ -1,4 +1,5 @@
-import * as BABYLONu from "https://cdn.babylonjs.com/babylon.max.js";
+// import * as BABYLONu from "https://cdn.babylonjs.com/babylon.max.js";
+import * as BABYLONu from "https://cdn.babylonjs.com/babylon.js";
 const BABYLON = BABYLONu as any;
 
 // import { Engine } from "../node_modules/@babylonjs/core/Engines/engine.js";
@@ -14,18 +15,18 @@ const BABYLON = BABYLONu as any;
 import '@babylonjs/loaders/glTF/2.0/index.js';
 
 const canvas = document.getElementById('renderCanvas');
-const engine = new Engine(canvas, true);
-const scene = new Scene(engine);
+const engine = new BABYLON.Engine(canvas, true);
+const scene = new BABYLON.Scene(engine);
 
-new HemisphericLight('hemiLight', new Vector3(0, 1, 0));
+new BABYLON.HemisphericLight('hemiLight', new BABYLON.Vector3(0, 1, 0));
 
 // Camera
-const camera = new ArcRotateCamera(
+const camera = new BABYLON.ArcRotateCamera(
   'arcRotateCamera',
   0,
   1,
   10,
-  new Vector3(0, 0, 0),
+  new BABYLON.Vector3(0, 0, 0),
   scene
 );
 camera.speed = 0.1;
@@ -45,13 +46,13 @@ scene.createDefaultEnvironment({
   createGround: false,
   createSkybox: false
 });
-CreateGround('ground', { width: 50, height: 50 });
+BABYLON.CreateGround('ground', { width: 50, height: 50 });
 
 camera.wheelPrecision = 10;
 
 // Model
 const loadModel = async () => {
-  const model = await SceneLoader.ImportMeshAsync('null', 'https://assets.babylonjs.com/meshes/', 'HVGirl.glb', scene);
+  const model = await BABYLON.SceneLoader.ImportMeshAsync('null', 'https://assets.babylonjs.com/meshes/', 'HVGirl.glb', scene);
   const player = model.meshes[0];
 }
 
