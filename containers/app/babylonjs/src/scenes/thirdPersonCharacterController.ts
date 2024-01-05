@@ -45,12 +45,12 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
     // Camera
     // This creates and positions a free camera (non-mesh)
     const camera = new ArcRotateCamera(
-       'arcRotateCamera',
-       0,
-       1,
-       10,
-       new Vector3(0, 0, 0),
-       scene
+      'arcRotateCamera',
+      0,
+      1,
+      10,
+      new Vector3(0, 0, 0),
+      scene
     );
     // camera.speed = 0.1;
 
@@ -71,7 +71,13 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
     //   createGround: false,
     //   createSkybox: false
     // });
-    // CreateGround('ground', { width: 50, height: 50 });
+
+    // Our built-in 'ground' shape.
+    const ground = CreateGround(
+      'ground', 
+      { width: 50, height: 50 }, 
+      scene
+    );
 
     // camera.wheelPrecision = 10;
 
