@@ -33,26 +33,25 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
     // This creates a basic Babylon Scene object (non-mesh)
     const scene = new Scene(engine);
 
-    // Uncomment to load the inspector (debugging) asynchronously
-
-    // void Promise.all([
-    //     import("@babylonjs/core/Debug/debugLayer"),
-    //     import("@babylonjs/inspector"),
-    // ]).then((_values) => {
-    //     console.log(_values);
-    //     scene.debugLayer.show({
-    //         handleResize: true,
-    //         overlay: true,
-    //         globalRoot: document.getElementById("#root") || undefined,
-    //     });
-    // });
+    // Uncomment below to load the inspector (debugging) asynchronously
+    void Promise.all([
+        import("@babylonjs/core/Debug/debugLayer"),
+        import("@babylonjs/inspector"),
+    ]).then((_values) => {
+        console.log(_values);
+        scene.debugLayer.show({
+            handleResize: true,
+            overlay: true,
+            globalRoot: document.getElementById("#root") || undefined,
+        });
+    });
 
     // Camera
     // This creates and positions a free camera (non-mesh)
     const camera = new ArcRotateCamera(
       'arcRotateCamera',
       0,
-      1,
+      Math.PI / 3,
       10,
       new Vector3(0, 0, 0),
       scene
