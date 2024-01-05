@@ -24,6 +24,7 @@ import "@babylonjs/core/Animations/animatable"
 // digital assets
 import hvGirl from "../../assets/glb/HVGirl.glb";
 import roomEnvironment from "../../assets/environment/room.env"
+import { MeshBuilder } from "@babylonjs/core";
 
 export class ThirdPersonCharacterController implements CreateSceneClass {
   createScene = async (
@@ -35,15 +36,15 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
 
     // Uncomment below to load the inspector (debugging) asynchronously
     void Promise.all([
-        import("@babylonjs/core/Debug/debugLayer"),
-        import("@babylonjs/inspector"),
+      import("@babylonjs/core/Debug/debugLayer"),
+      import("@babylonjs/inspector"),
     ]).then((_values) => {
-        console.log(_values);
-        scene.debugLayer.show({
-            handleResize: true,
-            overlay: true,
-            globalRoot: document.getElementById("#root") || undefined,
-        });
+      console.log(_values);
+      scene.debugLayer.show({
+        handleResize: true,
+        overlay: true,
+        globalRoot: document.getElementById("#root") || undefined,
+      });
     });
 
     // Camera
@@ -61,7 +62,7 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
     camera.speed = 0.1;
 
     // This targets the camera to scene origin
-    // camera.setTarget(Vector3.Zero());
+    camera.setTarget(Vector3.Zero());
 
     // This attaches the camera to the canvas
     camera.attachControl(canvas, true);
@@ -92,12 +93,18 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
     //   createSkybox: false
     // });
 
+    // Create a SkyBox as taken from the documentation at https://doc.babylonjs.com/features/featuresDeepDive/environment/skybox
+
+    const skybox = MeshBuilder.CreateBox('skybox', {size: 100.0 }, scene);
+    
+
     // Our built-in 'ground' shape.
-    const ground = CreateGround(
-      'ground',
-      { width: 50, height: 50 },
-      scene
-    );
+    // NOTE: We do not create a ground but use the Skybox instead
+    // const ground = CreateGround(
+    //   'ground',
+    //   { width: 50, height: 50 },
+    //   scene
+    // );
 
     const light = new HemisphericLight(
       "hemiLight",
@@ -133,7 +140,7 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
     player.scaling.setAll(0.1);
 
     // Lock the camera on the player
-    camera.setTarget(player);
+    // camera.setTarget(player); // Do not set it to player, but leave its target as the scene origin so all skybox walls will be enclosing the canvas.
 
     // Player character animations
     const walkAnim = scene.getAnimationGroupByName("Walking");
