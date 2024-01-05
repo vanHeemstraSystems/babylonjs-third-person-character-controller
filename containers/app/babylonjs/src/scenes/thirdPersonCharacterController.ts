@@ -12,13 +12,13 @@ import { CreateSceneClass } from "../createScene";
 // If you don't need the standard material you will still need to import it since the scene requires it.
 import "@babylonjs/core/Materials/standardMaterial";
 
-import '@babylonjs/loaders/glTF/2.0/index.js';
+// required imports
+import '@babylonjs/core/Loading/loadingScreen';
+import '@babylonjs/loaders/glTF';
+import "@babylonjs/core/Animations/animatable"
 
-// const canvas = document.getElementById('renderCanvas');
-// const engine = new Engine(canvas, true);
-// const scene = new Scene(engine);
-
-// new HemisphericLight('hemiLight', new Vector3(0, 1, 0));
+// digital assets
+import hvGirl from "../../assets/glb/HVGirl.glb";
 
 export class ThirdPersonCharacterController implements CreateSceneClass {
   createScene = async (
@@ -52,7 +52,7 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
       new Vector3(0, 0, 0),
       scene
     );
-    // camera.speed = 0.1;
+    camera.speed = 0.1;
 
     // This attaches the camera to the canvas
     camera.attachControl(canvas, true);
@@ -62,10 +62,10 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
       scene.render();
     });
 
-    // // Resize
-    // window.addEventListener('resize', () => {
-    //   engine.resize();
-    // });
+    // Resize
+    window.addEventListener('resize', () => {
+      engine.resize();
+    });
 
     // scene.createDefaultEnvironment({
     //   createGround: false,
@@ -74,8 +74,8 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
 
     // Our built-in 'ground' shape.
     const ground = CreateGround(
-      'ground', 
-      { width: 50, height: 50 }, 
+      'ground',
+      { width: 50, height: 50 },
       scene
     );
 
@@ -88,12 +88,21 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
     // camera.wheelPrecision = 10;
 
     // Model
-    const loadModel = async () => {
-      const model = await SceneLoader.ImportMeshAsync('null', 'https://assets.babylonjs.com/meshes/', 'HVGirl.glb', scene);
-      const player = model.meshes[0];
-    }
+    // const loadModel = async () => {
+    //   const model = await SceneLoader.ImportMeshAsync('null', 'https://assets.babylonjs.com/meshes/', 'HVGirl.glb', scene);
+    //   const player = model.meshes[0];
+    // }
 
-    loadModel();
+    const importResult = await SceneLoader.ImportMeshAsync(
+      "",
+      "",
+      hvGirl,
+      scene,
+      undefined,
+      ".glb"
+    );
+
+    // loadModel();
 
     return scene;
   };
