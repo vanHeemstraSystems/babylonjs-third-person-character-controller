@@ -21,7 +21,7 @@ We are following this initial creation of our BabylonJS app; [Babylon.js ES6 sup
 
 ## Usage
 
-After installation and starting the babylonjs service (at containers/app/babylonjs/), a browser window will show the BabylonJS environment and imported meshes (e.g. character). The character can be controlled by keypress as follows:
+After installation (```npm install```) and starting (```npm start```) the babylonjs service (at containers/app/babylonjs/), a browser window will show the BabylonJS environment and imported meshes (e.g. character). The character can be controlled by keypress as follows:
 
 Keypress:
 
