@@ -6,7 +6,10 @@ import { HemisphericLight } from "@babylonjs/core/Lights/hemisphericLight";
 import { SceneLoader } from "@babylonjs/core/Loading/sceneLoader";
 import { CubeTexture } from "@babylonjs/core/Materials/Textures/cubeTexture";
 import { EnvironmentHelper } from "@babylonjs/core/Helpers/environmentHelper";
-import { CreateGround } from "@babylonjs/core/Meshes/Builders/groundBuilder";
+// import { CreateGround } from "@babylonjs/core/Meshes/Builders/groundBuilder";
+import { BackgroundMaterial } from "@babylonjs/core/Materials/Background";
+import { Mesh } from "@babylonjs/core/Meshes/abstractMesh"; // WHERE is Mesh based?
+import { Texture } from "@babylonjs/core/Materials/Textures";
 import { ExecuteCodeAction } from "@babylonjs/core/Actions/directActions";
 import { ActionManager } from "@babylonjs/core/Actions/actionManager";
 import { CreateSceneClass } from "../createScene";
@@ -24,7 +27,7 @@ import "@babylonjs/core/Animations/animatable"
 // digital assets
 import hvGirl from "../../assets/glb/HVGirl.glb";
 import roomEnvironment from "../../assets/environment/room.env"
-import { MeshBuilder } from "@babylonjs/core";
+import { MeshBuilder, StandardMaterial } from "@babylonjs/core";
 
 export class ThirdPersonCharacterController implements CreateSceneClass {
   createScene = async (
@@ -95,8 +98,52 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
 
     // Create a SkyBox as taken from the documentation at https://doc.babylonjs.com/features/featuresDeepDive/environment/skybox
 
-    const skybox = MeshBuilder.CreateBox('skybox', {size: 100.0 }, scene);
-    
+    const skybox = MeshBuilder.CreateBox('skybox', { size: 100.0 }, scene);
+    const skyboxMaterial = new StandardMaterial('skybox', scene);
+    skyboxMaterial.backFaceCulling = false;
+    skyboxMaterial.disableLighting = true;
+    skybox.material = skyboxMaterial;
+
+    // Make the skybox follow the camera's position
+    skybox.infiniteDistance = true;
+
+    // Remove all light reflections on our box (the sun doesn't reflect on the sky!)
+    skyboxMaterial.disableLighting = true;
+
+    // Apply our sky texture
+    skyboxMaterial.reflectionTexture = new CubeTexture('textures/skybox', scene);
+    skyboxMaterial.reflectionTexture.coordinatesMode = Texture.SKYBOX_MODE;
+
+    // We want our skybox to render behind everything else, therefor we set the skybox's renderingGroupId to 0, 
+    // and every other renderable object's renderingGroupId greater than zero.
+    skybox.renderingGroupId = 0;
+
+    /*
+      Introduced in version 6.27.0 you can now "fake" a ground from within your skybox. 
+      This can help a lot "grounding" your models without requiring extra meshes or textures. 
+      It ensures a smooth transition from the "ground" to the environment.
+    */
+    const size = 1000;
+    const skydome = MeshBuilder.CreateBox("sky", { size, sideOrientation: Mesh.Builder.BACKSIDE }, scene);
+    skydome.position.y = size / 2;
+    skydome.receiveShadows = true;
+
+    // You can notice the side orientation is flipped to see the faces from within the box. This prevents the need to alter the backFaceCulling setup.
+
+    // Next, lets create a BackgroundMaterial to support ground projection.
+    const sky = new BackgroundMaterial("skyMaterial", scene);
+    sky.enableGroundProjection = true;
+    sky.projectedGroundRadius = 20;
+    sky.projectedGroundHeight = 3;
+    skydome.material = sky;
+
+    /*
+      The projectedGroundRadius and projectedGroundHeight are respectively simulating the radius of the disc representing the ground and how high it should be within the skybox. 
+      The size of the box you picked in the first step should at least be equal or bigger to the selected radius.
+    */
+
+    // Next, we apply our special sky texture to it. This texture must have been prepared to be a skybox, in a dedicated directory, named “skybox” in our example:
+    sky.reflectionTexture = new CubeTexture("textures/skybox", scene);
 
     // Our built-in 'ground' shape.
     // NOTE: We do not create a ground but use the Skybox instead
@@ -136,6 +183,7 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
     // importResult.meshes[0].scaling.scaleInPlace(0.33);
 
     const player = importResult.meshes[0];
+    player.renderingGroupId = 1; // Most by larger than 0 (which is the Skybox)
     // just scale the player so its fits with the ground
     player.scaling.setAll(0.1);
 
