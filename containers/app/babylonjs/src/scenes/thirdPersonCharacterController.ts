@@ -7,54 +7,84 @@ import { SceneLoader } from "@babylonjs/core/Loading/sceneLoader";
 import { CreateGround } from "@babylonjs/core/Meshes/Builders/groundBuilder";
 import { ExecuteCodeAction } from "@babylonjs/core/Actions/directActions";
 import { ActionManager } from "@babylonjs/core/Actions/actionManager";
+import { CreateSceneClass } from "../createScene";
 
 // If you don't need the standard material you will still need to import it since the scene requires it.
 import "@babylonjs/core/Materials/standardMaterial";
 
 // import '@babylonjs/loaders/glTF/2.0/index.js';
 
-const canvas = document.getElementById('renderCanvas');
-const engine = new Engine(canvas, true);
-const scene = new Scene(engine);
+// const canvas = document.getElementById('renderCanvas');
+// const engine = new Engine(canvas, true);
+// const scene = new Scene(engine);
 
-new HemisphericLight('hemiLight', new Vector3(0, 1, 0));
+// new HemisphericLight('hemiLight', new Vector3(0, 1, 0));
 
-// Camera
-const camera = new ArcRotateCamera(
-  'arcRotateCamera',
-  0,
-  1,
-  10,
-  new Vector3(0, 0, 0),
-  scene
-);
-camera.speed = 0.1;
-camera.attachControl(canvas, true);
+export class ThirdPersonCharacterController implements CreateSceneClass {
+  createScene = async (
+    engine: Engine,
+    canvas: HTMLCanvasElement
+  ): Promise<Scene> => {
+    // This creates a basic Babylon Scene object (non-mesh)
+    const scene = new Scene(engine);
 
-// Render
-engine.runRenderLoop(() => {
-  scene.render();
-});
+    // Uncomment to load the inspector (debugging) asynchronously
 
-// Resize
-window.addEventListener('resize', () => {
-  engine.resize();
-});
+    // void Promise.all([
+    //     import("@babylonjs/core/Debug/debugLayer"),
+    //     import("@babylonjs/inspector"),
+    // ]).then((_values) => {
+    //     console.log(_values);
+    //     scene.debugLayer.show({
+    //         handleResize: true,
+    //         overlay: true,
+    //         globalRoot: document.getElementById("#root") || undefined,
+    //     });
+    // });
 
-scene.createDefaultEnvironment({
-  createGround: false,
-  createSkybox: false
-});
-CreateGround('ground', { width: 50, height: 50 });
+    // Camera
+    // This creates and positions a free camera (non-mesh)
+    const camera = new ArcRotateCamera(
+       'arcRotateCamera',
+       0,
+       1,
+       10,
+       new Vector3(0, 0, 0),
+       scene
+    );
+    // camera.speed = 0.1;
+    // camera.attachControl(canvas, true);
 
-camera.wheelPrecision = 10;
+    // // Render
+    // engine.runRenderLoop(() => {
+    //   scene.render();
+    // });
 
-// Model
-const loadModel = async () => {
-  const model = await SceneLoader.ImportMeshAsync('null', 'https://assets.babylonjs.com/meshes/', 'HVGirl.glb', scene);
-  const player = model.meshes[0];
+    // // Resize
+    // window.addEventListener('resize', () => {
+    //   engine.resize();
+    // });
+
+    // scene.createDefaultEnvironment({
+    //   createGround: false,
+    //   createSkybox: false
+    // });
+    // CreateGround('ground', { width: 50, height: 50 });
+
+    // camera.wheelPrecision = 10;
+
+    // // Model
+    // const loadModel = async () => {
+    //   const model = await SceneLoader.ImportMeshAsync('null', 'https://assets.babylonjs.com/meshes/', 'HVGirl.glb', scene);
+    //   const player = model.meshes[0];
+    // }
+
+    // loadModel();
+
+    return scene;
+  };
 }
 
-loadModel();
+export default new ThirdPersonCharacterController();
 
 // MORE
