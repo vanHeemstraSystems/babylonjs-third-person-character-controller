@@ -136,6 +136,32 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
     // Lock the camera on the player
     camera.setTarget(player);
 
+    // Player character animations
+    const walkAnim = scene.getAnimationGroupByName("Walking");
+    const walkBackAnim = scene.getAnimationGroupByName("WalkingBack");
+    const idleAnim = scene.getAnimationGroupByName("Idle");
+    const sambaAnim = scene.getAnimationGroupByName("Samba");
+
+    // Player character variables
+    const playerWalkSpeed = 0.03;
+    const playerRunSpeed = 0.1;
+    const playerSpeedBackwards = 0.01;
+    const playerRotationSpeed = 0.01;
+    const runAnimSpeed = 3;
+    const walkAnimSpeed = 1;
+
+    let speed;
+    let animSpeed;
+
+    let keyStatus = {
+      w: false,
+      s: false,
+      a: false,
+      d: false,
+      b: false,
+      Shift: false
+    };
+    
     // loadModel();
 
     return scene;
