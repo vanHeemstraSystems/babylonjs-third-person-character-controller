@@ -8,6 +8,9 @@ import { CreateGround } from "@babylonjs/core/Meshes/Builders/groundBuilder";
 import { ExecuteCodeAction } from "@babylonjs/core/Actions/directActions";
 import { ActionManager } from "@babylonjs/core/Actions/actionManager";
 
+// If you don't need the standard material you will still need to import it since the scene requires it.
+import "@babylonjs/core/Materials/standardMaterial";
+
 // import '@babylonjs/loaders/glTF/2.0/index.js';
 
 const canvas = document.getElementById('renderCanvas');
