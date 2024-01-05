@@ -53,7 +53,9 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
        scene
     );
     // camera.speed = 0.1;
-    // camera.attachControl(canvas, true);
+
+    // This attaches the camera to the canvas
+    camera.attachControl(canvas, true);
 
     // // Render
     // engine.runRenderLoop(() => {
