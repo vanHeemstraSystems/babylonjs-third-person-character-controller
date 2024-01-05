@@ -150,10 +150,10 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
     const runAnimSpeed = 3;
     const walkAnimSpeed = 1;
 
-    let speed;
-    let animSpeed;
+    let speed: number;
+    let animSpeed: number;
 
-    let keyStatus = {
+    let keyStatus: { [key: string]: Boolean } = {
       w: false,
       s: false,
       a: false,
@@ -161,13 +161,146 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
       b: false,
       Shift: false
     };
-    
-    // loadModel();
+
+    // Keyboard events
+    scene.actionManager = new ActionManager(scene);
+
+    scene.actionManager.registerAction(
+      new ExecuteCodeAction(
+        ActionManager.OnKeyDownTrigger,
+        function (evt) {
+          let key = evt.sourceEvent.key;
+          if (key !== "Shift") {
+            key = key.toLowerCase();
+          }
+          if (key in keyStatus) {
+            keyStatus[key] = true;
+          }
+        }
+      )
+    );
+
+    scene.actionManager.registerAction(
+      new ExecuteCodeAction(
+        ActionManager.OnKeyUpTrigger,
+        function (evt) {
+          let key = evt.sourceEvent.key;
+          if (key !== "Shift") {
+            key = key.toLowerCase();
+          }
+          if (key in keyStatus) {
+            keyStatus[key] = false;
+          }
+        }
+      )
+    );
+
+    // Start not walking
+    let moving: Boolean = false;
+
+    scene.onBeforeRenderObservable.add(() => {
+      if (
+        keyStatus.w ||
+        keyStatus.s ||
+        keyStatus.a ||
+        keyStatus.d ||
+        keyStatus.b
+      ) {
+        moving = true;
+        if (keyStatus.s && !keyStatus.w) {
+          // Walk backwards
+          speed = -playerSpeedBackwards;
+          if (walkBackAnim !== null) {
+            walkBackAnim.start(
+              true,
+              1.0,
+              walkBackAnim.from,
+              walkBackAnim.to,
+              false
+            );
+          }
+        } else if (
+          keyStatus.w ||
+          keyStatus.a ||
+          keyStatus.d
+        ) {
+          // Run or walk
+          speed = keyStatus.Shift
+            ? playerRunSpeed
+            : playerWalkSpeed;
+          animSpeed = keyStatus.Shift
+            ? runAnimSpeed
+            : walkAnimSpeed;
+          if (walkAnim !== null) {
+            walkAnim.speedRatio = animSpeed;
+            walkAnim.start(
+              true,
+              animSpeed,
+              walkAnim.from,
+              walkAnim.to,
+              false
+            );
+          }
+        }
+
+        if (keyStatus.a) {
+          // Turn left
+          player.rotate(Vector3.Up(), -playerRotationSpeed);
+        }
+
+        if (keyStatus.d) {
+          // Turn right
+          player.rotate(Vector3.Up(), playerRotationSpeed);
+        }
+
+        if (keyStatus.b) {
+          // Dance
+          if (sambaAnim !== null) {
+            sambaAnim.start(
+              true,
+              1.0,
+              sambaAnim.from,
+              sambaAnim.to,
+              false
+            );
+          }
+        }
+
+        player.moveWithCollisions(
+          player.forward.scaleInPlace(speed)
+        );
+      } else if (moving) {
+        // Stop all animations besides Idle Anim when no key is down
+        if (idleAnim !== null) {
+          idleAnim.start(
+            true,
+            1.0,
+            idleAnim.from,
+            idleAnim.to,
+            false
+          );
+        }
+        if (sambaAnim !== null) {
+          sambaAnim.stop();
+        }
+        if (walkAnim !== null) {
+          walkAnim.stop();
+        }
+        if (walkBackAnim !== null) {
+          walkBackAnim.stop();
+        }
+        moving = false;
+      }
+    });
+
+    // loadModel(); // No longer needed, remove
 
     return scene;
   };
 }
 
-export default new ThirdPersonCharacterController();
+// Throws error on keypress:
+// "DefaultCollisionCoordinator needs to be imported before as it contains a side-effect required by your code."
+// To Do: find out what causes the error.
 
-// MORE
+export default new ThirdPersonCharacterController();
