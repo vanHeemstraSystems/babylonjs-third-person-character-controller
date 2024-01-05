@@ -25,9 +25,9 @@ After installation and starting the babylonjs service (at containers/app/babylon
 
 Keypress:
 
-- 'w' for walking straight 
+- 'w' for walking straight forward
 - 'a' for turning left whilst walking
-- 'd' for turining right whilst walking
+- 'd' for turning right whilst walking
 - 's' for walking backwards
 
 *NOTE*: When holding Shift, the walking will be faster (except for the walking backwards).
