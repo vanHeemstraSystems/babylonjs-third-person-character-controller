@@ -4,6 +4,8 @@ import { ArcRotateCamera } from "@babylonjs/core/Cameras/arcRotateCamera";
 import { Vector3 } from "@babylonjs/core/Maths/math.vector";
 import { HemisphericLight } from "@babylonjs/core/Lights/hemisphericLight";
 import { SceneLoader } from "@babylonjs/core/Loading/sceneLoader";
+import { CubeTexture } from "@babylonjs/core/Materials/Textures/cubeTexture";
+import { EnvironmentHelper } from "@babylonjs/core/Helpers/environmentHelper";
 import { CreateGround } from "@babylonjs/core/Meshes/Builders/groundBuilder";
 import { ExecuteCodeAction } from "@babylonjs/core/Actions/directActions";
 import { ActionManager } from "@babylonjs/core/Actions/actionManager";
@@ -15,10 +17,13 @@ import "@babylonjs/core/Materials/standardMaterial";
 // required imports
 import '@babylonjs/core/Loading/loadingScreen';
 import '@babylonjs/loaders/glTF';
+// import "@babylonjs/core/Materials/standardMaterial";
+import "@babylonjs/core/Materials/Textures/Loaders/envTextureLoader";
 import "@babylonjs/core/Animations/animatable"
 
 // digital assets
 import hvGirl from "../../assets/glb/HVGirl.glb";
+import roomEnvironment from "../../assets/environment/room.env"
 
 export class ThirdPersonCharacterController implements CreateSceneClass {
   createScene = async (
@@ -52,10 +57,26 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
       new Vector3(0, 0, 0),
       scene
     );
+
+    // This sets the speed of the camera
     camera.speed = 0.1;
+
+    // This targets the camera to scene origin
+    camera.setTarget(Vector3.Zero());
 
     // This attaches the camera to the canvas
     camera.attachControl(canvas, true);
+
+    // camera.useFramingBehavior = true; // What does this do?
+
+    // load the environment file
+    scene.environmentTexture = new CubeTexture(roomEnvironment, scene);
+
+    // if not setting the envtext of the scene, we have to load the DDS module as well
+    new EnvironmentHelper({
+      skyboxTexture: roomEnvironment,
+      createGround: false
+    }, scene)
 
     // Render
     engine.runRenderLoop(() => {
@@ -85,6 +106,9 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
       scene
     );
 
+    // Default intensity is 1. Let's dim the light a small amount
+    light.intensity = 0.7;
+
     camera.wheelPrecision = 10;
 
     // Model
@@ -101,6 +125,9 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
       undefined,
       ".glb"
     );
+
+    // just scale it so we can see it better
+    importResult.meshes[0].scaling.scaleInPlace(0.33);
 
     const player = importResult.meshes[0];
 
