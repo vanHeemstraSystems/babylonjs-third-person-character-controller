@@ -85,7 +85,7 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
       scene
     );
 
-    // camera.wheelPrecision = 10;
+    camera.wheelPrecision = 10;
 
     // Model
     // const loadModel = async () => {
@@ -101,6 +101,8 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
       undefined,
       ".glb"
     );
+
+    const player = importResult.meshes[0];
 
     // loadModel();
 
