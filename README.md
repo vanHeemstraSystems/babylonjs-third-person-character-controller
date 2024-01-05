@@ -18,3 +18,16 @@ Open the inspector using Ctrl+Shift+U (or Command+Shift+U on Mac)
 We are following this initial creation of our BabylonJS app; [Babylon.js ES6 support with Tree Shaking](https://doc.babylonjs.com/setup/frameworkPackages/es6Support) and hosted at https://github.com/RaananW/babylonjs-webpack-es6
 
 *TIP*: Read if you encounter this error [What is this “Invalid Host Header” error?](https://medium.com/@AvinashBlaze/what-is-this-invalid-host-header-error-9cd760ae6d16)
+
+## Usage
+
+After installation and starting the babylonjs service (at containers/app/babylonjs/), a browser window will show the BabylonJS environment and imported meshes (e.g. character). The character can be controlled by keypress as follows:
+
+Keypress:
+
+- 'w' for walking straight 
+- 'a' for turning left whilst walking
+- 'd' for turining right whilst walking
+- 's' for walking backwards
+
+*NOTE*: When holding Shift, the walking will be faster (except for the walking backwards).
