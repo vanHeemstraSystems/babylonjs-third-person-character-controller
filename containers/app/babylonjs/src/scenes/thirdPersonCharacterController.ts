@@ -12,7 +12,7 @@ import { CreateSceneClass } from "../createScene";
 // If you don't need the standard material you will still need to import it since the scene requires it.
 import "@babylonjs/core/Materials/standardMaterial";
 
-// import '@babylonjs/loaders/glTF/2.0/index.js';
+import '@babylonjs/loaders/glTF/2.0/index.js';
 
 // const canvas = document.getElementById('renderCanvas');
 // const engine = new Engine(canvas, true);
@@ -57,10 +57,10 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
     // This attaches the camera to the canvas
     camera.attachControl(canvas, true);
 
-    // // Render
-    // engine.runRenderLoop(() => {
-    //   scene.render();
-    // });
+    // Render
+    engine.runRenderLoop(() => {
+      scene.render();
+    });
 
     // // Resize
     // window.addEventListener('resize', () => {
@@ -79,15 +79,21 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
       scene
     );
 
+    const light = new HemisphericLight(
+      "hemiLight",
+      new Vector3(0, -1, 1),
+      scene
+    );
+
     // camera.wheelPrecision = 10;
 
-    // // Model
-    // const loadModel = async () => {
-    //   const model = await SceneLoader.ImportMeshAsync('null', 'https://assets.babylonjs.com/meshes/', 'HVGirl.glb', scene);
-    //   const player = model.meshes[0];
-    // }
+    // Model
+    const loadModel = async () => {
+      const model = await SceneLoader.ImportMeshAsync('null', 'https://assets.babylonjs.com/meshes/', 'HVGirl.glb', scene);
+      const player = model.meshes[0];
+    }
 
-    // loadModel();
+    loadModel();
 
     return scene;
   };
