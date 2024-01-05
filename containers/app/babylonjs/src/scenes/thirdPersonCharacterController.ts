@@ -62,7 +62,7 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
     camera.speed = 0.1;
 
     // This targets the camera to scene origin
-    camera.setTarget(Vector3.Zero());
+    // camera.setTarget(Vector3.Zero());
 
     // This attaches the camera to the canvas
     camera.attachControl(canvas, true);
@@ -127,9 +127,14 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
     );
 
     // just scale it so we can see it better
-    importResult.meshes[0].scaling.scaleInPlace(0.33);
+    // importResult.meshes[0].scaling.scaleInPlace(0.33);
 
     const player = importResult.meshes[0];
+    // just scale the player so its fits with the ground
+    player.scaling.setAll(0.1);
+
+    // Lock the camera on the player
+    camera.setTarget(player);
 
     // loadModel();
 
