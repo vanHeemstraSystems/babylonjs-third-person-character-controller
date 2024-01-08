@@ -140,11 +140,11 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
     // You can notice the side orientation is flipped to see the faces from within the box. This prevents the need to alter the backFaceCulling setup.
 
     // Next, lets create a BackgroundMaterial to support ground projection.
-//    const sky = new BackgroundMaterial("skyMaterial", scene);
+    const sky = new BackgroundMaterial("skyMaterial", scene);
 //    sky.enableGroundProjection = true;
 //    sky.projectedGroundRadius = 20;
 //    sky.projectedGroundHeight = 3;
-//    skydome.material = sky;
+    skydome.material = sky;
 
     /*
       The projectedGroundRadius and projectedGroundHeight are respectively simulating the radius of the disc representing the ground and how high it should be within the skybox. 
