@@ -111,7 +111,8 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
 //    skyboxMaterial.disableLighting = true;
 
     // Apply our sky texture
-//    skyboxMaterial.reflectionTexture = new CubeTexture('textures/skybox', scene);
+//    skyboxMaterial.reflectionTexture = new CubeTexture('textures/skybox', scene); // USE LINE BELOW INSTEAD, WITH RELATIVE PATH
+//    skyboxMaterial.reflectionTexture = new CubeTexture('../../assets/textures/skybox', scene);
 //    skyboxMaterial.reflectionTexture.coordinatesMode = Texture.SKYBOX_MODE;
 
     // We want our skybox to render behind everything else, therefor we set the skybox's renderingGroupId to 0, 
