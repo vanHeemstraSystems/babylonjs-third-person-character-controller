@@ -8,7 +8,6 @@ import { CubeTexture } from "@babylonjs/core/Materials/Textures/cubeTexture";
 import { EnvironmentHelper } from "@babylonjs/core/Helpers/environmentHelper";
 // import { CreateGround } from "@babylonjs/core/Meshes/Builders/groundBuilder";
 import { BackgroundMaterial } from "@babylonjs/core/Materials/Background";
-// import { Mesh } from "@babylonjs/core/Meshes/abstractMesh"; // WHERE is Mesh based?
 import { Texture } from "@babylonjs/core/Materials/Textures";
 import { ExecuteCodeAction } from "@babylonjs/core/Actions/directActions";
 import { ActionManager } from "@babylonjs/core/Actions/actionManager";
