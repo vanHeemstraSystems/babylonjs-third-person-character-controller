@@ -81,12 +81,12 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
       createGround: false
     }, scene)
 
-    // Render
+    // Register a render loop to repeatedly render the scene
     engine.runRenderLoop(() => {
       scene.render();
     });
 
-    // Resize
+    // Watch for browser/canvas resize events
     window.addEventListener('resize', () => {
       engine.resize();
     });
