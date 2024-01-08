@@ -70,16 +70,24 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
     // This attaches the camera to the canvas
     camera.attachControl(canvas, true);
 
+    // Restrict the camera so that it cannot move below ground level.
+    camera.upperBetaLimit = Math.PI / 2.2;
+
     // camera.useFramingBehavior = true; // What does this do?
 
     // load the environment file
     scene.environmentTexture = new CubeTexture(roomEnvironment, scene);
 
     // if not setting the envtext of the scene, we have to load the DDS module as well
+    // new EnvironmentHelper({
+    //  skyboxTexture: roomEnvironment,
+    //  createGround: false
+    //}, scene)
+
     new EnvironmentHelper({
-      skyboxTexture: roomEnvironment,
       createGround: false
     }, scene)
+
 
     // Register a render loop to repeatedly render the scene
     engine.runRenderLoop(() => {
@@ -98,17 +106,17 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
 
     // Create a SkyBox as taken from the documentation at https://doc.babylonjs.com/features/featuresDeepDive/environment/skybox
 
-//    const skybox = MeshBuilder.CreateBox('skybox', { size: 100.0 }, scene);
-//    const skyboxMaterial = new StandardMaterial('skybox', scene);
-//    skyboxMaterial.backFaceCulling = false;
-//    skyboxMaterial.disableLighting = true;
-//    skybox.material = skyboxMaterial;
+    const skybox = MeshBuilder.CreateBox('skybox', { size: 100.0 }, scene);
+    const skyboxMaterial = new StandardMaterial('skybox', scene);
+    skyboxMaterial.backFaceCulling = false;
+    skyboxMaterial.disableLighting = true;
+    skybox.material = skyboxMaterial;
 
     // Make the skybox follow the camera's position
-//    skybox.infiniteDistance = true;
+    skybox.infiniteDistance = true;
 
     // Remove all light reflections on our box (the sun doesn't reflect on the sky!)
-//    skyboxMaterial.disableLighting = true;
+    skyboxMaterial.disableLighting = true;
 
     // Apply our sky texture
 //    skyboxMaterial.reflectionTexture = new CubeTexture('textures/skybox', scene); // USE LINE BELOW INSTEAD, WITH RELATIVE PATH
