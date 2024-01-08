@@ -117,14 +117,14 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
     // Remove all light reflections on our box (the sun doesn't reflect on the sky!)
     skyboxMaterial.disableLighting = true;
 
-    // Apply our sky texture
+    // Apply our sky texture, found in the folder 'public' of used locally
     skyboxMaterial.reflectionTexture = new CubeTexture('textures/skybox', scene); // USE LOCAL ASSETS
 //    skyboxMaterial.reflectionTexture = new CubeTexture('https://assets.babylonjs.com/textures/skybox', scene); // USE REMOTE ASSETS
     skyboxMaterial.reflectionTexture.coordinatesMode = Texture.SKYBOX_MODE;
 
     // We want our skybox to render behind everything else, therefor we set the skybox's renderingGroupId to 0, 
     // and every other renderable object's renderingGroupId greater than zero.
-//    skybox.renderingGroupId = 0;
+    skybox.renderingGroupId = 0;
 
     /*
       Introduced in version 6.27.0 you can now "fake" a ground from within your skybox. 
