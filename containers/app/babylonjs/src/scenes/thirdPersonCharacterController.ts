@@ -140,9 +140,9 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
 
     // Next, lets create a BackgroundMaterial to support ground projection.
     const sky = new BackgroundMaterial("skyMaterial", scene);
-//    sky.enableGroundProjection = true;
-//    sky.projectedGroundRadius = 20;
-//    sky.projectedGroundHeight = 3;
+//    sky.enableGroundProjection = true; // method is missing
+//    sky.projectedGroundRadius = 20; // method is missing
+//    sky.projectedGroundHeight = 3; // method is missing
     skydome.material = sky;
 
     /*
