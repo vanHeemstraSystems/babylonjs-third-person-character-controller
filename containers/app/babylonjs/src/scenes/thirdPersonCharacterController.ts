@@ -27,7 +27,7 @@ import "@babylonjs/core/Animations/animatable"
 // digital assets
 import hvGirl from "../../assets/glb/HVGirl.glb";
 import roomEnvironment from "../../assets/environment/room.env"
-import { MeshBuilder, StandardMaterial } from "@babylonjs/core";
+import { Mesh, MeshBuilder, StandardMaterial } from "@babylonjs/core";
 
 export class ThirdPersonCharacterController implements CreateSceneClass {
   createScene = async (
@@ -76,7 +76,7 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
     // camera.useFramingBehavior = true; // What does this do?
 
     // load the environment file
-    scene.environmentTexture = new CubeTexture(roomEnvironment, scene);
+    // scene.environmentTexture = new CubeTexture(roomEnvironment, scene); // Skip environment for now
 
     // if not setting the envtext of the scene, we have to load the DDS module as well
     // new EnvironmentHelper({
@@ -85,6 +85,7 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
     //}, scene)
 
     new EnvironmentHelper({
+      createSkybox: false, // Skip Skybox here, we'll create one further on
       createGround: false
     }, scene)
 
@@ -131,10 +132,10 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
       This can help a lot "grounding" your models without requiring extra meshes or textures. 
       It ensures a smooth transition from the "ground" to the environment.
     */
-//    const size = 1000;
-//    const skydome = MeshBuilder.CreateBox("sky", { size, sideOrientation: Mesh.Builder.BACKSIDE }, scene);
-//    skydome.position.y = size / 2;
-//    skydome.receiveShadows = true;
+    const size = 1000;
+    const skydome = MeshBuilder.CreateBox("sky", { size, sideOrientation: Mesh.BACKSIDE }, scene);
+    skydome.position.y = size / 2;
+    skydome.receiveShadows = true;
 
     // You can notice the side orientation is flipped to see the faces from within the box. This prevents the need to alter the backFaceCulling setup.
 
