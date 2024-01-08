@@ -9,6 +9,8 @@ Sandbox "Babylon Journey 5 - Start" at https://codesandbox.io/p/sandbox/babylonj
 
 Sandbox "Babylon Journey 5 - Final" at https://codesandbox.io/p/sandbox/babylonjourney5-final-zq8zn9
 
+Take into account "Optimizing a Large-Scale Babylon.js Scene" at https://joepavitt.medium.com/optimizing-a-large-scale-babylon-js-scene-9466bb715e15
+
 *TIP*: For ```Failed to resolve module specifier. Relative references must start with either```, see https://bobbyhadz.com/blog/failed-to-resolve-module-specifier-javascript
 
 For a live animation of a character see https://cdn.babylonjs.com/ 
