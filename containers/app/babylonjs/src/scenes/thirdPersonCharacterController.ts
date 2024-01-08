@@ -88,7 +88,6 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
       createGround: false
     }, scene)
 
-
     // Register a render loop to repeatedly render the scene
     engine.runRenderLoop(() => {
       scene.render();
@@ -119,9 +118,9 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
     skyboxMaterial.disableLighting = true;
 
     // Apply our sky texture
-//    skyboxMaterial.reflectionTexture = new CubeTexture('textures/skybox', scene); // USE LINE BELOW INSTEAD, WITH RELATIVE PATH
-//    skyboxMaterial.reflectionTexture = new CubeTexture('../../assets/textures/skybox', scene);
-//    skyboxMaterial.reflectionTexture.coordinatesMode = Texture.SKYBOX_MODE;
+    skyboxMaterial.reflectionTexture = new CubeTexture('textures/skybox', scene); // USE LOCAL ASSETS
+//    skyboxMaterial.reflectionTexture = new CubeTexture('https://assets.babylonjs.com/textures/skybox', scene); // USE REMOTE ASSETS
+    skyboxMaterial.reflectionTexture.coordinatesMode = Texture.SKYBOX_MODE;
 
     // We want our skybox to render behind everything else, therefor we set the skybox's renderingGroupId to 0, 
     // and every other renderable object's renderingGroupId greater than zero.
