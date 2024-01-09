@@ -2,7 +2,7 @@ import type { Engine } from "@babylonjs/core/Engines/engine";
 import type { Scene } from "@babylonjs/core/scene";
 
 // Change this import to check other scenes
-import { DefaultSceneWithTexture } from "./scenes/defaultWithTexture";
+import { DefaultSceneWithTexture } from "./scenes/defaultWithTexture"; // Locally
 // import { ThirdPersonCharacterController } from "./scenes/thirdPersonCharacterController"; // Locally
 import { ThirdPersonCharacterController } from "https://github.com/vanHeemstraSystems/babylonjs-scene-third-person-character-controller/raw/main/scene.ts"; // Remotelly
 
