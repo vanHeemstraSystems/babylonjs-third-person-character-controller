@@ -3,8 +3,8 @@ import type { Scene } from "@babylonjs/core/scene";
 
 // Change this import to check other scenes
 import { DefaultSceneWithTexture } from "./scenes/defaultWithTexture";
-import { ThirdPersonCharacterController } from "./scenes/thirdPersonCharacterController";
-
+// import { ThirdPersonCharacterController } from "./scenes/thirdPersonCharacterController"; // Locally
+import { ThirdPersonCharacterController } from "https://github.com/vanHeemstraSystems/babylonjs-scene-third-person-character-controller/raw/main/scene.ts"; // Remotelly
 
 export interface CreateSceneClass {
     createScene: (engine: Engine, canvas: HTMLCanvasElement) => Promise<Scene>;
