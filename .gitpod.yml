@@ -1,0 +1,6 @@
+# Commands that will run on workspace start
+tasks:
+    - name: Upgrade NPM to version 10.2.5
+      # before: yarn global add express
+      init: npm install -g npm@10.2.5
+      command: npm install
