@@ -3,6 +3,8 @@ babylonjs-third-person-character-controller
 
 [![Buy me a coffee][buymeacoffee-icon]][buymeacoffee]
 
+<a href="https://www.buymeacoffee.com/wvanheemstra"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=wvanheemstra&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" /></a>
+
 Based on "Babylon Journey 5: Third Person Character Controller" at https://www.youtube.com/watch?v=07Bgr2i4sgI
 
 Based on "BabylonJS - Animating Characters" at https://doc.babylonjs.com/features/featuresDeepDive/animation/animatedCharacter
