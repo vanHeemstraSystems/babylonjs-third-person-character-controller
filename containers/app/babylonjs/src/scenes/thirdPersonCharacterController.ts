@@ -499,8 +499,4 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
   };
 }
 
-// Throws error on keypress:
-// "DefaultCollisionCoordinator needs to be imported before as it contains a side-effect required by your code."
-// To Do: find out what causes the error.
-
 export default new ThirdPersonCharacterController();
