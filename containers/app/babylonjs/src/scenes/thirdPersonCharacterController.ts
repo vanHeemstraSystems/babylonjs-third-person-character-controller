@@ -12,6 +12,7 @@ import { Texture } from "@babylonjs/core/Materials/Textures";
 import { ExecuteCodeAction } from "@babylonjs/core/Actions/directActions";
 import { ActionManager } from "@babylonjs/core/Actions/actionManager";
 import { CreateSceneClass } from "../createScene";
+import * as GUI from "@babylonjs/gui/2D";
 
 // If you don't need the standard material you will still need to import it since the scene requires it.
 import "@babylonjs/core/Materials/standardMaterial";
@@ -26,7 +27,7 @@ import "@babylonjs/core/Animations/animatable"
 // digital assets
 import hvGirl from "../../assets/glb/HVGirl.glb";
 // import roomEnvironment from "../../assets/environment/room.env" // Not Used
-import { Mesh, MeshBuilder, StandardMaterial } from "@babylonjs/core";
+import { GamepadManager, Mesh, MeshBuilder, StandardMaterial } from "@babylonjs/core";
 
 export class ThirdPersonCharacterController implements CreateSceneClass {
   createScene = async (
@@ -37,6 +38,7 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
     const scene = new Scene(engine);
 
     // Uncomment below to load the inspector (debugging) asynchronously
+    /*
     void Promise.all([
       import("@babylonjs/core/Debug/debugLayer"),
       import("@babylonjs/inspector"),
@@ -48,6 +50,7 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
         globalRoot: document.getElementById("#root") || undefined,
       });
     });
+    */
 
     // Camera
     // This creates and positions a free camera (non-mesh)
@@ -119,7 +122,7 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
 
     // Apply our sky texture, found in the folder 'public' of used locally
     skyboxMaterial.reflectionTexture = new CubeTexture('textures/skybox', scene); // USE LOCAL ASSETS
-//    skyboxMaterial.reflectionTexture = new CubeTexture('https://assets.babylonjs.com/textures/skybox', scene); // USE REMOTE ASSETS
+    //    skyboxMaterial.reflectionTexture = new CubeTexture('https://assets.babylonjs.com/textures/skybox', scene); // USE REMOTE ASSETS
     skyboxMaterial.reflectionTexture.coordinatesMode = Texture.SKYBOX_MODE;
 
     // We want our skybox to render behind everything else, therefor we set the skybox's renderingGroupId to 0, 
@@ -140,9 +143,9 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
 
     // Next, lets create a BackgroundMaterial to support ground projection.
     const sky = new BackgroundMaterial("skyMaterial", scene);
-//    sky.enableGroundProjection = true; // method is missing
-//    sky.projectedGroundRadius = 20; // method is missing
-//    sky.projectedGroundHeight = 3; // method is missing
+    //    sky.enableGroundProjection = true; // method is missing
+    //    sky.projectedGroundRadius = 20; // method is missing
+    //    sky.projectedGroundHeight = 3; // method is missing
     skydome.material = sky;
 
     /*
@@ -151,7 +154,7 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
     */
 
     // Next, we apply our special sky texture to it. This texture must have been prepared to be a skybox, in a dedicated directory, named “skybox” in our example:
-//    sky.reflectionTexture = new CubeTexture("textures/skybox", scene);
+    //    sky.reflectionTexture = new CubeTexture("textures/skybox", scene);
 
     // Our built-in 'ground' shape.
     // NOTE: We do not create a ground but use the Skybox instead
@@ -353,6 +356,40 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
         }
         moving = false;
       }
+    });
+
+    // Gamepad manager logic
+    // Based on https://doc.babylonjs.com/features/featuresDeepDive/input/gamepads
+    // Based on https://www.basedash.com/blog/how-to-simulate-a-keypress-in-javascript
+    // See also How To Make GUI For Your Babylon.js Apps - 2 Methods Tutorial at https://www.youtube.com/watch?v=PazvoTKoigA
+    var advancedTexture = GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+    var stackPanel = new GUI.StackPanel();
+    stackPanel.isVertical = true;
+    stackPanel.color = "white";
+    advancedTexture.addControl(stackPanel);
+
+    let connectionText = new GUI.TextBlock("connection", "");
+    connectionText.height = "30px";
+    stackPanel.addControl(connectionText);
+    let buttonsText = new GUI.TextBlock("buttons", "");
+    buttonsText.height = "30px";
+    stackPanel.addControl(buttonsText);
+    let triggerText = new GUI.TextBlock("trigger", "");
+    triggerText.height = "30px";
+    stackPanel.addControl(triggerText);
+    let stickText = new GUI.TextBlock("stick", "");
+    stickText.height = "30px";
+    stackPanel.addControl(stickText);
+
+    /*
+     * Controlling the player
+     */
+
+    const gamepadManager = new GamepadManager();
+    gamepadManager.onGamepadConnectedObservable.add((gamepad, state) => {
+      connectionText.text = "Connected: " + gamepad.id;
+      console.log("Connected: " + gamepad.id)
+      // More ...
     });
 
     // loadModel(); // No longer needed, remove
