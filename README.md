@@ -33,5 +33,6 @@ Keypress:
 - 'a' for turning left whilst walking
 - 'd' for turning right whilst walking
 - 's' for walking backwards
+- 'b' for dancing
 
 *NOTE*: When holding Shift, the walking will be faster (except for the walking backwards).
