@@ -27,7 +27,7 @@ import "@babylonjs/core/Animations/animatable"
 // digital assets
 import hvGirl from "../../assets/glb/HVGirl.glb";
 // import roomEnvironment from "../../assets/environment/room.env" // Not Used
-import { GamepadManager, GenericPad, Mesh, MeshBuilder, StandardMaterial, Xbox360Pad } from "@babylonjs/core";
+import { GamepadManager, GenericPad, Mesh, MeshBuilder, StandardMaterial, Xbox360Button, Xbox360Pad } from "@babylonjs/core";
 // import { PoseEnabledController } from "@babylonjs/core/Gamepads/gamepadManager"; // Not Found
 
 export class ThirdPersonCharacterController implements CreateSceneClass {
@@ -396,10 +396,26 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
         RIGHT = "Right"
       };
 
-      //Handle gamepad types
+      // Handle gamepad types
       if (gamepad instanceof Xbox360Pad) {
 
-        // More ...
+        //Xbox button down/up events
+        gamepad.onButtonDownObservable.add((button, state) => {
+          buttonsText.text = Xbox360Button[button] + " pressed";
+        })
+        gamepad.onButtonUpObservable.add((button, state) => {
+          buttonsText.text = Xbox360Button[button] + " released";
+        })
+
+        //Stick events
+        gamepad.onleftstickchanged((values) => {
+          stickText.text = "x:" + values.x.toFixed(3) + " y:" + values.y.toFixed(3);
+          simulateKeyBoardPresses(STICK_ENUM.LEFT, values);
+        });
+        gamepad.onrightstickchanged((values) => {
+          stickText.text = "x:" + values.x.toFixed(3) + " y:" + values.y.toFixed(3);
+          simulateKeyBoardPresses(STICK_ENUM.RIGHT, values);
+        });
 
       } else if (gamepad instanceof GenericPad) {
 
@@ -423,21 +439,21 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
       function simulateKeyBoardPresses(stick: STICK_ENUM, values: any) {
         // Forward
         if (parseFloat(values.y.toFixed(3)) < 0.000) {
-          // switch (stick) {
-          //   case STICK_ENUM.LEFT:
-          // Walk forward
-          keyStatus.w = true;
-          console.log("Start walking forward ...");
-          //   break;
-          // case STICK_ENUM.RIGHT:
-          //   // Camera tilt down
-          //   keyStatus.i = true;
-          //   // To Do
-          //   console.log("Start camera pan tilt down ...");
-          //   break;
-          // default:
-          //   console.log("Unknown stick: ", stick);
-          // }
+          switch (stick) {
+            case STICK_ENUM.LEFT:
+              // Walk forward
+              keyStatus.w = true;
+              console.log("Start walking forward ...");
+              break;
+            case STICK_ENUM.RIGHT:
+              // Camera tilt down
+              keyStatus.i = true;
+              // To Do
+              console.log("Start camera pan tilt down ...");
+              break;
+            default:
+              console.log("Unknown stick: ", stick);
+          }
         } else if (parseFloat(values.y.toFixed(3)) == 0.000) {
           // Stop walking forward
           keyStatus.w = false;
