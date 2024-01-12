@@ -392,6 +392,23 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
       // More ...
     });
 
+    gamepadManager.onGamepadDisconnectedObservable.add((gamepad, state) => {
+      connectionText.text = "Disconnected: " + gamepad.id;
+      console.log("Disconnected: " + gamepad.id)
+    });
+
+    // At any time, a gamepad's current state can be checked with the gamepads properties:
+    /*
+      scene.registerBeforeRender(function () {
+          if(gamepad instanceof Xbox360Pad){
+              if(gamepad.buttonA){
+                  sphere.position.y+=0.05
+              }
+              sphere.position.x+=gamepad.leftStick.x*0.05
+          }
+      }
+    */
+
     // loadModel(); // No longer needed, remove
 
     return scene;
