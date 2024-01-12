@@ -27,7 +27,8 @@ import "@babylonjs/core/Animations/animatable"
 // digital assets
 import hvGirl from "../../assets/glb/HVGirl.glb";
 // import roomEnvironment from "../../assets/environment/room.env" // Not Used
-import { GamepadManager, Mesh, MeshBuilder, StandardMaterial } from "@babylonjs/core";
+import { GamepadManager, GenericPad, Mesh, MeshBuilder, StandardMaterial, Xbox360Pad } from "@babylonjs/core";
+// import { PoseEnabledController } from "@babylonjs/core/Gamepads/gamepadManager"; // Not Found
 
 export class ThirdPersonCharacterController implements CreateSceneClass {
   createScene = async (
@@ -389,7 +390,90 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
     gamepadManager.onGamepadConnectedObservable.add((gamepad, state) => {
       connectionText.text = "Connected: " + gamepad.id;
       console.log("Connected: " + gamepad.id)
+
+      enum STICK_ENUM {
+        LEFT = "Left",
+        RIGHT = "Right"
+      };
+
+      //Handle gamepad types
+      if (gamepad instanceof Xbox360Pad) {
+
+        // More ...
+
+      } else if (gamepad instanceof GenericPad) {
+
+        // More ...
+
+      }
+      /* TEMP DISABLED 
+        else if (gamepad instanceof PoseEnabledController) {
+
+      }
+      */
+
+      /*
+       * Controlling the camera
+       * See https://doc.babylonjs.com/features/featuresDeepDive/cameras/customizingCameraInputs
+       */
+
       // More ...
+
+      // Simulate Keyboard presses
+      function simulateKeyBoardPresses(stick: STICK_ENUM, values: any) {
+        // Forward
+        if (parseFloat(values.y.toFixed(3)) < 0.000) {
+          // switch (stick) {
+          //   case STICK_ENUM.LEFT:
+          // Walk forward
+          keyStatus.w = true;
+          console.log("Start walking forward ...");
+          //   break;
+          // case STICK_ENUM.RIGHT:
+          //   // Camera tilt down
+          //   keyStatus.i = true;
+          //   // To Do
+          //   console.log("Start camera pan tilt down ...");
+          //   break;
+          // default:
+          //   console.log("Unknown stick: ", stick);
+          // }
+        } else if (parseFloat(values.y.toFixed(3)) == 0.000) {
+          // Stop walking forward
+          keyStatus.w = false;
+          console.log("Stop walking forward ...");
+        }
+        // Left
+        if (parseFloat(values.x.toFixed(3)) < 0.000) {
+          // Walk turning left
+          keyStatus.a = true;
+          console.log("Start walking turning left ...");
+        } else if (parseFloat(values.x.toFixed(3)) == 0.000) {
+          // Stop walking turning left
+          keyStatus.a = false;
+          console.log("Stop walking turning left ...");
+        }
+        // Right
+        if (parseFloat(values.x.toFixed(3)) > 0.000) {
+          // Walk turning right
+          keyStatus.d = true;
+          console.log("Start walking turning right ...");
+        } else if (parseFloat(values.x.toFixed(3)) == 0.000) {
+          // Stop walking turning right
+          keyStatus.d = false;
+          console.log("Stop walking turning right ...");
+        }
+        // Walk back
+        if (parseFloat(values.y.toFixed(3)) > 0.000) {
+          // Walk backward
+          keyStatus.s = true;
+          console.log("Start walking backward ...");
+        } else if (parseFloat(values.y.toFixed(3)) == 0.000) {
+          // Stop walking backward
+          keyStatus.s = false;
+          console.log("Stop walking backward ...");
+        }
+      };
     });
 
     gamepadManager.onGamepadDisconnectedObservable.add((gamepad, state) => {
