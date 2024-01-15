@@ -1,6 +1,9 @@
-# Commands that will run on workspace start
+
 tasks:
     - name: Upgrade NPM to version 10.3.0
       before: cd containers/app/babylonjs
       init: npm install -g npm@10.3.0
       command: npm install
+vscode:
+  extensions:
+    - sourcegraph.cody-ai
