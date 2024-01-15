@@ -220,12 +220,16 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
     let animSpeed: number;
 
     let keyStatus: { [key: string]: Boolean } = {
-      w: false,
-      s: false,
-      a: false,
-      d: false,
-      b: false,
-      Shift: false
+      w: false, // player walk forward
+      s: false, // player walk backward
+      a: false, // player walk turning left
+      d: false, // player walk turining right
+      b: false, // player dance
+      i: false, // camera tilt down
+      j: false, // camera pan left
+      k: false, // camera tilt up
+      l: false, // camera pan right
+      Shift: false // fast
     };
 
     // Keyboard events
