@@ -463,7 +463,7 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
               break;
             case STICK_ENUM.RIGHT:
               // Camera tilt up
-              keyStatus.i = true;
+              keyStatus.k = true;
               // To Do
               console.log("Start camera tilt up ...");
               break;
@@ -473,13 +473,36 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
         }
         // Left
         if (parseFloat(values.x.toFixed(3)) < 0.000) {
-          // Walk turning left
-          keyStatus.a = true;
-          console.log("Start walking turning left ...");
+          switch (stick) {
+            case STICK_ENUM.LEFT:
+              // Walk turning left
+              keyStatus.a = true;
+              console.log("Start walking turning left ...");
+              break;
+            case STICK_ENUM.RIGHT:  
+              // Camera pan left
+              keyStatus.j = true;
+              // To Do
+              console.log("Start camera pan left ...");
+              break;
+            default:
+              console.log("Unknown stick: ", stick);
+          }
         } else if (parseFloat(values.x.toFixed(3)) == 0.000) {
-          // Stop walking turning left
-          keyStatus.a = false;
-          console.log("Stop walking turning left ...");
+          switch (stick) {
+            case STICK_ENUM.LEFT:
+              // Stop walking turning left
+              keyStatus.a = false;
+              console.log("Stop walking turning left ...");
+            case STICK_ENUM.RIGHT:
+              // Stop camera panning left
+              keyStatus.j = false;
+              // To Do
+              console.log("Stop camera panning left ...");
+              break;
+            default:
+              console.log("Unknown stick: ", stick);
+          }
         }
         // Right
         if (parseFloat(values.x.toFixed(3)) > 0.000) {
