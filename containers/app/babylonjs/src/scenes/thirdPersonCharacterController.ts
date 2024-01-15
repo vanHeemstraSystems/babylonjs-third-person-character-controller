@@ -449,12 +449,12 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
               // Camera tilt down
               keyStatus.i = true;
               // To Do
-              console.log("Start camera tilt down ...");
+              console.log("Start camera tilting down ...");
               break;
             default:
               console.log("Unknown stick: ", stick);
           }
-        } else if (parseFloat(values.y.toFixed(3)) >= 0.000) {
+        } else if (parseFloat(values.y.toFixed(3)) == 0.000) {
           switch (stick) {
             case STICK_ENUM.LEFT:
               // Stop walking forward
@@ -462,10 +462,10 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
               console.log("Stop walking forward ...");
               break;
             case STICK_ENUM.RIGHT:
-              // Camera tilt up
-              keyStatus.k = true;
+              // Stop camera tilt down
+              keyStatus.i = false;
               // To Do
-              console.log("Start camera tilt up ...");
+              console.log("Stop camera tilting down ...");
               break;
             default:
               console.log("Unknown stick: ", stick);
@@ -483,7 +483,7 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
               // Camera pan left
               keyStatus.j = true;
               // To Do
-              console.log("Start camera pan left ...");
+              console.log("Start camera panning left ...");
               break;
             default:
               console.log("Unknown stick: ", stick);
@@ -506,13 +506,37 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
         }
         // Right
         if (parseFloat(values.x.toFixed(3)) > 0.000) {
-          // Walk turning right
-          keyStatus.d = true;
-          console.log("Start walking turning right ...");
+          switch (stick) {
+            case STICK_ENUM.LEFT:
+              // Walk turning right
+              keyStatus.d = true;
+              console.log("Start walking turning right ...");
+              break;
+            case STICK_ENUM.RIGHT:  
+              // Camera pan right
+              keyStatus.l = true;
+              // To Do
+              console.log("Start camera panning right ...");
+              break;
+            default:
+              console.log("Unknown stick: ", stick);
+          }
         } else if (parseFloat(values.x.toFixed(3)) == 0.000) {
-          // Stop walking turning right
-          keyStatus.d = false;
-          console.log("Stop walking turning right ...");
+          switch (stick) {
+            case STICK_ENUM.LEFT:
+              // Stop walking turning right
+              keyStatus.d = false;
+              console.log("Stop walking turning right ...");
+              break;
+            case STICK_ENUM.RIGHT:
+              // Stop camera panning right
+              keyStatus.l = false;
+              // To Do
+              console.log("Stop camera panning right ...");
+              break;
+            default:
+              console.log("Unknown stick: ", stick);        
+          }
         }
         // Walk back
         if (parseFloat(values.y.toFixed(3)) > 0.000) {
