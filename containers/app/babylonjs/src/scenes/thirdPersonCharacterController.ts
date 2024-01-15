@@ -437,7 +437,7 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
 
       // Simulate Keyboard presses
       function simulateKeyBoardPresses(stick: STICK_ENUM, values: any) {
-        // Forward
+        // Player walk forward / camera tilt down
         if (parseFloat(values.y.toFixed(3)) < 0.000) {
           switch (stick) {
             case STICK_ENUM.LEFT:
@@ -471,7 +471,7 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
               console.log("Unknown stick: ", stick);
           }
         }
-        // Left
+        // Player turn left / camera pan left
         if (parseFloat(values.x.toFixed(3)) < 0.000) {
           switch (stick) {
             case STICK_ENUM.LEFT:
@@ -504,7 +504,7 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
               console.log("Unknown stick: ", stick);
           }
         }
-        // Right
+        // Player turn right / camera pan right
         if (parseFloat(values.x.toFixed(3)) > 0.000) {
           switch (stick) {
             case STICK_ENUM.LEFT:
@@ -538,15 +538,39 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
               console.log("Unknown stick: ", stick);        
           }
         }
-        // Walk back
+        // Player walk back / camera tilt up
         if (parseFloat(values.y.toFixed(3)) > 0.000) {
-          // Walk backward
-          keyStatus.s = true;
-          console.log("Start walking backward ...");
+          switch (stick) {
+            case STICK_ENUM.LEFT:
+              // Walk backward
+              keyStatus.s = true;
+              console.log("Start walking backward ...");
+              break;
+            case STICK_ENUM.RIGHT:
+              // Camera tilt up
+              keyStatus.k = true;
+              // To Do
+              console.log("Start camera tilting up ...");
+              break;
+            default:
+              console.log("Unknown stick: ", stick);
+          }
         } else if (parseFloat(values.y.toFixed(3)) == 0.000) {
-          // Stop walking backward
-          keyStatus.s = false;
-          console.log("Stop walking backward ...");
+          switch (stick) {
+            case STICK_ENUM.LEFT:
+              // Stop walking backward
+              keyStatus.s = false;
+              console.log("Stop walking backward ...");
+              break
+            case STICK_ENUM.RIGHT:
+              // Stop camera tilt up
+              keyStatus.k = false;
+              // To Do
+              console.log("Stop camera tilting up ...");
+              break;
+            default:
+              console.log("Unknown stick: ", stick);              
+          }    
         }
       };
     });
