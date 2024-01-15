@@ -449,15 +449,27 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
               // Camera tilt down
               keyStatus.i = true;
               // To Do
-              console.log("Start camera pan tilt down ...");
+              console.log("Start camera tilt down ...");
               break;
             default:
               console.log("Unknown stick: ", stick);
           }
-        } else if (parseFloat(values.y.toFixed(3)) == 0.000) {
-          // Stop walking forward
-          keyStatus.w = false;
-          console.log("Stop walking forward ...");
+        } else if (parseFloat(values.y.toFixed(3)) >= 0.000) {
+          switch (stick) {
+            case STICK_ENUM.LEFT:
+              // Stop walking forward
+              keyStatus.w = false;
+              console.log("Stop walking forward ...");
+              break;
+            case STICK_ENUM.RIGHT:
+              // Camera tilt up
+              keyStatus.i = true;
+              // To Do
+              console.log("Start camera tilt up ...");
+              break;
+            default:
+              console.log("Unknown stick: ", stick);
+          }
         }
         // Left
         if (parseFloat(values.x.toFixed(3)) < 0.000) {
