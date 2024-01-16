@@ -385,6 +385,9 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
     let stickText = new GUI.TextBlock("stick", "");
     stickText.height = "30px";
     stackPanel.addControl(stickText);
+    // let buttonText = new GUI.TextBlock("button", "");
+    // buttonText.height = "30px";
+    // stackPanel.addControl(buttonText);
 
     /*
      * Controlling the player
@@ -400,10 +403,17 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
         RIGHT = "Right"
       };
 
+      // enum BUTTON_ENUM {
+      //   A = "A",
+      //   B = "B",
+      //   X = "X",
+      //   Y = "Y"
+      // };
+
       // Handle gamepad types
       if (gamepad instanceof Xbox360Pad) {
 
-        //Xbox button down/up events
+        // Xbox button down/up events
         gamepad.onButtonDownObservable.add((button, state) => {
           buttonsText.text = Xbox360Button[button] + " pressed";
         })
@@ -411,15 +421,21 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
           buttonsText.text = Xbox360Button[button] + " released";
         })
 
-        //Stick events
+        // Stick events
         gamepad.onleftstickchanged((values) => {
           stickText.text = "x:" + values.x.toFixed(3) + " y:" + values.y.toFixed(3);
-          simulateKeyBoardPresses(STICK_ENUM.LEFT, values);
+          simulateKeyBoardPressesByStick(STICK_ENUM.LEFT, values);
         });
         gamepad.onrightstickchanged((values) => {
           stickText.text = "x:" + values.x.toFixed(3) + " y:" + values.y.toFixed(3);
-          simulateKeyBoardPresses(STICK_ENUM.RIGHT, values);
+          simulateKeyBoardPressesByStick(STICK_ENUM.RIGHT, values);
         });
+
+        // // Button events
+        // gamepad.onbuttondown((button) => {
+        //   buttonText.text = "button: " + button;
+        //   simulateKeyBoardPressesByButton(BUTTON_ENUM.B); // TEMP Hardcode, change ...!
+        // });
 
       } else if (gamepad instanceof GenericPad) {
 
@@ -439,8 +455,28 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
 
       // More ...
 
-      // Simulate Keyboard presses
-      function simulateKeyBoardPresses(stick: STICK_ENUM, values: any) {
+      // // Simulate Keyboard presses by Button
+      // function simulateKeyBoardPressesByButton(button: BUTTON_ENUM) {
+      //   // Player dance
+      //   switch (button) {
+      //     case BUTTON_ENUM.A:
+      //       break;
+      //     case BUTTON_ENUM.B:
+      //       // Player dance
+      //       keyStatus.b = true;
+      //       console.log("Start dancing ...");
+      //       break;
+      //     case BUTTON_ENUM.X:
+      //       break;
+      //     case BUTTON_ENUM.Y:
+      //       break;
+      //     default:
+      //       console.log("Unknown button: ", button);
+      //   }
+      // };
+
+      // Simulate Keyboard presses by Stick
+      function simulateKeyBoardPressesByStick(stick: STICK_ENUM, values: any) {
         // Player walk forward / camera tilt down
         if (parseFloat(values.y.toFixed(3)) < 0.000) {
           switch (stick) {
@@ -483,7 +519,7 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
               keyStatus.a = true;
               console.log("Start walking turning left ...");
               break;
-            case STICK_ENUM.RIGHT:  
+            case STICK_ENUM.RIGHT:
               // Camera pan left
               keyStatus.j = true;
               // To Do
@@ -516,7 +552,7 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
               keyStatus.d = true;
               console.log("Start walking turning right ...");
               break;
-            case STICK_ENUM.RIGHT:  
+            case STICK_ENUM.RIGHT:
               // Camera pan right
               keyStatus.l = true;
               // To Do
@@ -539,7 +575,7 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
               console.log("Stop camera panning right ...");
               break;
             default:
-              console.log("Unknown stick: ", stick);        
+              console.log("Unknown stick: ", stick);
           }
         }
         // Player walk back / camera tilt up
@@ -573,8 +609,8 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
               console.log("Stop camera tilting up ...");
               break;
             default:
-              console.log("Unknown stick: ", stick);              
-          }    
+              console.log("Unknown stick: ", stick);
+          }
         }
       };
     });
