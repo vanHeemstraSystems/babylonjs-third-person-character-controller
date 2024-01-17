@@ -232,10 +232,10 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
       a: false, // player walk turning left
       d: false, // player walk turining right
       b: false, // player dance
-      i: false, // camera tilt down
-      j: false, // camera pan left
-      k: false, // camera tilt up
-      l: false, // camera pan right
+      i: false, // camera tilt down, similar to mouse left button drag up
+      j: false, // camera pan left, similar to mouse left button drag right
+      k: false, // camera tilt up, similar to mouse left button drag down
+      l: false, // camera pan right, similar to mouse left button drag left
       Shift: false // fast
     };
 
