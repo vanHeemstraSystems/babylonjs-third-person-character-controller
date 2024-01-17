@@ -55,12 +55,19 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
 
     // Camera
     // This creates and positions a free camera (non-mesh)
+    // so we can spin it around the mesh
+    let alpha = 0, // The camera starts off by facing directly west (-X), but
+                   // we can rotate it so that we're looking towards southwest (-X, -Z)
+    beta = Math.PI / 3, // The camera starts off by facing directly downwards (-Y), but
+                        // we can rotate it so that we're looking down at a 45 degree angle
+    radius = 10, // Our distance from the target position
+    targetPoint = Vector3.Zero(); // The target point - we will rotate around (0, 0, 0), always looking directly at it
     const camera = new ArcRotateCamera(
       'arcRotateCamera',
-      0,
-      Math.PI / 3,
-      10,
-      new Vector3(0, 0, 0),
+      alpha,
+      beta,
+      radius,
+      targetPoint,
       scene
     );
 
@@ -274,11 +281,13 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
         keyStatus.s ||
         keyStatus.a ||
         keyStatus.d ||
-        keyStatus.b
+        keyStatus.b ||
+        keyStatus.i ||
+        keyStatus.k
       ) {
         moving = true;
         if (keyStatus.s && !keyStatus.w) {
-          // Walk backwards
+          // Player walk backwards
           speed = -playerSpeedBackwards;
           if (walkBackAnim !== null) {
             walkBackAnim.start(
@@ -294,7 +303,7 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
           keyStatus.a ||
           keyStatus.d
         ) {
-          // Run or walk
+          // Player run or walk
           speed = keyStatus.Shift
             ? playerRunSpeed
             : playerWalkSpeed;
@@ -314,17 +323,17 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
         }
 
         if (keyStatus.a) {
-          // Turn left
+          // Player turn left
           player.rotate(Vector3.Up(), -playerRotationSpeed);
         }
 
         if (keyStatus.d) {
-          // Turn right
+          // Player turn right
           player.rotate(Vector3.Up(), playerRotationSpeed);
         }
 
         if (keyStatus.b) {
-          // Dance
+          // Player dance
           if (sambaAnim !== null) {
             sambaAnim.start(
               true,
@@ -334,6 +343,18 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
               false
             );
           }
+        }
+
+        if (keyStatus.i) {
+          // Camera tilt down
+          beta = beta / (beta + 10); // Down ... Is 10 the right amount??
+          camera.setPosition(new Vector3(alpha, beta, radius)); // ERROR: The alpha value is reset also, not using the current alpha value
+        }
+
+        if (keyStatus.k) {
+          // Camera tilt up
+          beta = beta / (beta - 10); // Up ... Is 10 the right amount??
+          camera.setPosition(new Vector3(alpha, beta, radius)); // ERROR: The alpha value is reset also, not using the current alpha value
         }
 
         player.moveWithCollisions(
@@ -385,9 +406,6 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
     let stickText = new GUI.TextBlock("stick", "");
     stickText.height = "30px";
     stackPanel.addControl(stickText);
-    // let buttonText = new GUI.TextBlock("button", "");
-    // buttonText.height = "30px";
-    // stackPanel.addControl(buttonText);
 
     /*
      * Controlling the player
@@ -509,6 +527,10 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
       };
 
       // Simulate Keyboard presses by Stick
+      /*
+       * For understanding Arc Rotate Camera movements, 
+       * see https://doc.babylonjs.com/features/featuresDeepDive/cameras/camera_introduction#arc-rotate-camera
+       */
       function simulateKeyBoardPressesByStick(stick: STICK_ENUM, values: any) {
         // Player walk forward / camera tilt down
         if (parseFloat(values.y.toFixed(3)) < 0.000) {
@@ -521,7 +543,6 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
             case STICK_ENUM.RIGHT:
               // Camera tilt down
               keyStatus.i = true;
-              // To Do
               console.log("Start camera tilting down ...");
               break;
             default:
@@ -537,7 +558,6 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
             case STICK_ENUM.RIGHT:
               // Stop camera tilt down
               keyStatus.i = false;
-              // To Do
               console.log("Stop camera tilting down ...");
               break;
             default:
