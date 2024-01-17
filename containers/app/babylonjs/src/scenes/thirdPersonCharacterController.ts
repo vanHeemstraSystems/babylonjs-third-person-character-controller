@@ -403,22 +403,61 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
         RIGHT = "Right"
       };
 
-      // enum BUTTON_ENUM {
-      //   A = "A",
-      //   B = "B",
-      //   X = "X",
-      //   Y = "Y"
-      // };
+      enum BUTTON_ENUM {
+        A = "A",
+        B = "B",
+        X = "X",
+        Y = "Y"
+      };
 
       // Handle gamepad types
       if (gamepad instanceof Xbox360Pad) {
-
         // Xbox button down/up events
         gamepad.onButtonDownObservable.add((button, state) => {
           buttonsText.text = Xbox360Button[button] + " pressed";
+          switch (Xbox360Button[button]) {
+            case "A":
+              console.log("Button A pressed")
+              simulateKeyBoardPressesByButton(BUTTON_ENUM.A, true);
+              break;
+            case "B":
+              console.log("Button B pressed")
+              simulateKeyBoardPressesByButton(BUTTON_ENUM.B, true);
+              break;
+            case "X":
+              console.log("Button X pressed")
+              simulateKeyBoardPressesByButton(BUTTON_ENUM.X, true);
+              break;
+            case "Y":
+              console.log("Button Y pressed")
+              simulateKeyBoardPressesByButton(BUTTON_ENUM.Y, true);
+              break;
+            default:
+              console.log("Unknown Button pressed: ", Xbox360Button[button])
+          }
         })
         gamepad.onButtonUpObservable.add((button, state) => {
           buttonsText.text = Xbox360Button[button] + " released";
+          switch (Xbox360Button[button]) {
+            case "A":
+              console.log("Button A released")
+              simulateKeyBoardPressesByButton(BUTTON_ENUM.A, false);
+              break;
+            case "B":
+              console.log("Button B released")
+              simulateKeyBoardPressesByButton(BUTTON_ENUM.B, false);
+              break;
+            case "X":
+              console.log("Button X released")
+              simulateKeyBoardPressesByButton(BUTTON_ENUM.X, false);
+              break;
+            case "Y":
+              console.log("Button Y released")
+              simulateKeyBoardPressesByButton(BUTTON_ENUM.Y, false);
+              break;
+            default:
+              console.log("Unknown Button released: ", Xbox360Button[button])
+          }
         })
 
         // Stick events
@@ -430,12 +469,6 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
           stickText.text = "x:" + values.x.toFixed(3) + " y:" + values.y.toFixed(3);
           simulateKeyBoardPressesByStick(STICK_ENUM.RIGHT, values);
         });
-
-        // // Button events
-        // gamepad.onbuttondown((button) => {
-        //   buttonText.text = "button: " + button;
-        //   simulateKeyBoardPressesByButton(BUTTON_ENUM.B); // TEMP Hardcode, change ...!
-        // });
 
       } else if (gamepad instanceof GenericPad) {
 
@@ -455,25 +488,25 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
 
       // More ...
 
-      // // Simulate Keyboard presses by Button
-      // function simulateKeyBoardPressesByButton(button: BUTTON_ENUM) {
-      //   // Player dance
-      //   switch (button) {
-      //     case BUTTON_ENUM.A:
-      //       break;
-      //     case BUTTON_ENUM.B:
-      //       // Player dance
-      //       keyStatus.b = true;
-      //       console.log("Start dancing ...");
-      //       break;
-      //     case BUTTON_ENUM.X:
-      //       break;
-      //     case BUTTON_ENUM.Y:
-      //       break;
-      //     default:
-      //       console.log("Unknown button: ", button);
-      //   }
-      // };
+      // Simulate Keyboard presses by Button
+      function simulateKeyBoardPressesByButton(button: BUTTON_ENUM, status: Boolean) {
+        // Player dance
+        switch (button) {
+          case BUTTON_ENUM.A:
+            break;
+          case BUTTON_ENUM.B:
+            // Player dance
+            keyStatus.b = status;
+            if (status) { console.log("Start dancing ..."); } else { console.log("Stop dancing ..."); }
+            break;
+          case BUTTON_ENUM.X:
+            break;
+          case BUTTON_ENUM.Y:
+            break;
+          default:
+            console.log("Unknown button: ", button);
+        }
+      };
 
       // Simulate Keyboard presses by Stick
       function simulateKeyBoardPressesByStick(stick: STICK_ENUM, values: any) {
@@ -622,14 +655,15 @@ export class ThirdPersonCharacterController implements CreateSceneClass {
 
     // At any time, a gamepad's current state can be checked with the gamepads properties:
     /*
-      scene.registerBeforeRender(function () {
-          if(gamepad instanceof Xbox360Pad){
-              if(gamepad.buttonA){
-                  sphere.position.y+=0.05
-              }
-              sphere.position.x+=gamepad.leftStick.x*0.05
-          }
+    scene.registerBeforeRender(function () {
+      if (gamepad instanceof Xbox360Pad) {
+        if (gamepad.buttonA) {
+          // sphere.position.y+=0.05
+          console.log("Button A pressed")
+        }
+        // sphere.position.x+=gamepad.leftStick.x*0.05
       }
+    }
     */
 
     // loadModel(); // No longer needed, remove
