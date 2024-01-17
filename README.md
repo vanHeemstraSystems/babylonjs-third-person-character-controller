@@ -27,7 +27,7 @@ We are following this initial creation of our BabylonJS app; [Babylon.js ES6 sup
 
 After installation (```npm install```) and starting (```npm start```) the babylonjs service (at containers/app/babylonjs/), a browser window will show the BabylonJS environment and imported meshes (e.g. character). The character can be controlled by keypress as follows:
 
-Keypress:
+Keyboard press:
 
 - 'w' for walking straight forward
 - 'a' for turning left whilst walking
@@ -36,3 +36,13 @@ Keypress:
 - 'b' for dancing
 
 *NOTE*: When holding Shift, the walking will be faster (except for the walking backwards).
+
+Gamepad (type Xbox360Pad):
+
+If your Gamepad is not recognized, try (re-)plugging it into your computer again.
+
+- 'left stick forward' for walking straight forward
+- 'left stick left' for turning left whilst walking
+- 'left stick right' for turning right whilst walking
+- 'left stick backward' for walking backwards
+- 'button B' for dancing
