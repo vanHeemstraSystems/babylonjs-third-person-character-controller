@@ -26,6 +26,7 @@ import "@babylonjs/core/Animations/animatable"
 
 // digital assets
 import hvGirl from "../../assets/glb/HVGirl.glb";
+// import hvGirl from "https://github.com/vanHeemstraSystems/babylonjs-mesh-hvgirl/raw/main/HVGirl.glb"; // Test, can we import from our Github repository?
 // import roomEnvironment from "../../assets/environment/room.env" // Not Used
 import { GamepadManager, GenericPad, Mesh, MeshBuilder, StandardMaterial, Xbox360Button, Xbox360Pad } from "@babylonjs/core";
 // import { PoseEnabledController } from "@babylonjs/core/Gamepads/gamepadManager"; // Not Found
